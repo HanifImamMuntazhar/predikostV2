@@ -37,10 +37,10 @@ koordinat_wilayah = {
 # -------------------------------------------------------------
 # 3. SIDEBAR NAVIGASI
 # -------------------------------------------------------------
-st.sidebar.title("🏠 Navigasi")
+st.sidebar.title("Navigasi")
 menu = st.sidebar.radio(
     "Pilih Menu:",
-    ("Hitung Prediksi Harga", "Insight & Fun Fact Data")
+    ("Hitung Prediksi Harga", "Insight & Fun Fact")
 )
 
 st.sidebar.markdown("---")
@@ -51,22 +51,22 @@ st.sidebar.info(
 )
 
 # -------------------------------------------------------------
-# 4. HALAMAN 1: KALKULATOR PREDIKSI (DENGAN VISUALISASI)
+# 4. HALAMAN 1: PREDIKSI HARGA KOST
 # -------------------------------------------------------------
 if menu == "Hitung Prediksi Harga":
-    st.title("💸 Kalkulator Harga Kost Sukabumi")
-    st.markdown("Masukkan kriteria kost yang kamu inginkan, dan biarkan AI menebak harga sewanya!")
+    st.title("Prediksi Harga Kost Sukabumi")
+    st.markdown("Masukkan kriteria kost yang kamu inginkan, dan biarkan kami menebak harga sewanya!")
 
     # --- FORM INPUT ---
     col1, col2 = st.columns(2)
 
     with col1:
-        st.subheader("📍 Informasi Dasar")
+        st.subheader("Informasi Dasar")
         lokasi_pilihan = st.selectbox("Pilih Kecamatan (Lokasi):", list(koordinat_wilayah.keys()))
         tipe_pilihan = st.selectbox("Pilih Tipe Kost:", ['Putra', 'Putri', 'Campur'])
 
     with col2:
-        st.subheader("🛏️ Fasilitas Utama")
+        st.subheader("Fasilitas Utama")
         st.write("Centang fasilitas yang tersedia:")
         
         f_col1, f_col2 = st.columns(2)
@@ -82,8 +82,8 @@ if menu == "Hitung Prediksi Harga":
     st.markdown("---")
     
     # --- LOGIKA PREDIKSI ---
-    if st.button("🔮 Prediksi Harga Sekarang!", type="primary", use_container_width=True):
-        with st.spinner("AI sedang berhitung..."):
+    if st.button("Prediksi Harga Sekarang!", type="primary", use_container_width=True):
+        with st.spinner("Tunggu Kami sedang menghitung..."):
             
             input_data = {col: 0 for col in fitur_cols}
             
@@ -107,17 +107,17 @@ if menu == "Hitung Prediksi Harga":
             
             st.success("Tebakan Selesai! Berikut adalah analisis untuk spesifikasi kost Anda:")
             
-            # --- VISUALISASI HASIL (GAMBAR, GAUGE CHART, & PETA) ---
+            # --- VISUALISASI HASIL ---
             res_col1, res_col2 = st.columns([1.2, 1])
             
             with res_col1:
-                st.markdown(f"### 🛏️ Representasi Kamar")
+                st.markdown(f"### Gambaran Kamar")
                 
-                img_path = "assets/kamar_kosongan.jpg"
+                img_path = "assets/kamar_kosongan.jpeg"
                 if fas_kasur and fas_ac:
-                    img_path = "assets/kamar_ac.jpg"
+                    img_path = "assets/kamar_ac.jpeg"
                 elif fas_kasur and not fas_ac:
-                    img_path = "assets/kamar_standar.jpg"
+                    img_path = "assets/kamar_standar.jpeg"
                     
                 if os.path.exists(img_path):
                     st.image(img_path, use_container_width=True)
@@ -150,24 +150,22 @@ if menu == "Hitung Prediksi Harga":
                 st.markdown(f"**🗺️ Area Wilayah ({lokasi_pilihan})**")
                 df_map = pd.DataFrame([{"lat": koordinat_wilayah[lokasi_pilihan][0], "lon": koordinat_wilayah[lokasi_pilihan][1]}])
                 st.map(df_map, zoom=13)
-                
-            st.caption("*Catatan: Ini adalah prediksi AI berdasarkan pola algoritma Machine Learning dari data riil. Harga asli dapat bervariasi.*")
 
 
 # -------------------------------------------------------------
 # 5. HALAMAN 2: INSIGHT & FUN FACT
 # -------------------------------------------------------------
 elif menu == "Insight & Fun Fact Data":
-    st.title("📊 Insight Penelitian & Fun Fact")
+    st.title("Insight Penelitian & Fun Fact")
     st.markdown("Penasaran apa yang sebenarnya membuat harga kost bisa sangat mahal atau murah? Berikut adalah temuan dari algoritma *Machine Learning*!")
     
     try:
         img = Image.open('grafik_feature_importance.png')
         st.image(img, caption="Hasil Analisis Feature Importance Random Forest", use_column_width=True)
     except FileNotFoundError:
-        st.warning("⚠️ Gambar grafik_feature_importance.png tidak ditemukan di folder. Pastikan file gambar sudah dirender ulang setelah perbaikan model.")
+        st.warning("Gambar grafik_feature_importance.png tidak ditemukan di folder. Pastikan file gambar sudah dirender ulang setelah perbaikan model.")
 
-    st.markdown("### 💡 3 Fun Fact Menarik Seputar Kost di Sukabumi")
+    st.markdown("### 3 Fun Fact Menarik Seputar Kost di Sukabumi")
     
     st.info("**1. AC Adalah Raja Harga**\n\n"
             "Ternyata, ketersediaan AC menjadi garis batas mutlak antara kost standar dan kost premium. Algoritma menemukan bahwa pemilik kost menaikkan harga paling drastis hanya dengan menambahkan fasilitas AC, jauh mengalahkan pengaruh fasilitas lain.")
