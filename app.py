@@ -155,7 +155,7 @@ if menu == "Hitung Prediksi Harga":
 # -------------------------------------------------------------
 # 5. HALAMAN 2: INSIGHT & FUN FACT
 # -------------------------------------------------------------
-elif menu == "Insight & Fun Fact Data":
+elif menu == "Insight & Fun Fact":
     st.title("Insight Penelitian & Fun Fact")
     st.markdown("Penasaran apa yang sebenarnya membuat harga kost bisa sangat mahal atau murah? Berikut adalah temuan dari algoritma *Machine Learning*!")
     
